@@ -11,5 +11,6 @@
         "main.ts",
         "README.md"
     ],
-    "preferredEditor": "tsprj"
+    "preferredEditor": "tsprj",
+    "icon": "sprout_logo.jpg"
 }
