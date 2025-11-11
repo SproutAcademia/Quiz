@@ -129,16 +129,21 @@ Works in both single-player and classroom multiplayer worlds
 
 All titles shown via /title commands with customizable duration
 
-### 🧑‍🏫 Classroom Use
-Teachers can:
+### 🧑‍🏫 How to Answer
 
-Prepare a quiz.txt file with all questions beforehand
+There are two ways to answer quiz questions:
 
-Load it in class using /loadquiz or a “Load Quiz” button block
+- **Teacher (running the extension project):**
+  - Type `1`, `2`, `3`, or `4` in chat (no slash).
+- **Students (no extension needed):**
+  - Use the `/tell` command to send their answer to the teacher.
+  - Example (if the teacher’s name is `OscarV`):
+    - `/tell OscarV 1`
+    - `/tell OscarV 2`
+    - `/tell OscarV 3`
+    - `/tell OscarV 4`
 
-Let students answer live by typing 1, 2, 3, or 4
-
-View correct/incorrect responses in real-time on screen
+Both methods trigger the same quiz logic on the teacher’s side and are treated as choosing option 1–4 for the current question.
 
 🗂️ Example workflow
 Create your quiz in a text file named quiz.txt.

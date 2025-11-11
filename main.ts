@@ -19,6 +19,15 @@ namespace SproutAcademia {
     //
     // Helpers
     //
+    function escapeTitleText(text: string): string {
+        if (!text) return ""
+        // Replace internal double quotes with single quotes
+        text = text.replace(/"/g, `'`)
+        // Remove control characters like newlines
+        text = text.replace(/\r?\n|\r/g, " ")
+        return text
+    }
+
     function showTitle(main: string, sub: string, durationSeconds: number) {
         // Convert seconds to ticks (20 ticks = 1 second)
         // We'll keep a short fade-in/out for smooth transitions
@@ -26,10 +35,14 @@ namespace SproutAcademia {
         let stay = Math.max(durationSeconds * 20, 40) // ensure at least 2s visible
         let fadeOut = 20 // 1 second
 
+        // Clean text before showing
+        const safeMain = escapeTitleText(main)
+        const safeSub = escapeTitleText(sub)
+
         // Apply title timing and display the text
         player.execute(`title @a times ${fadeIn} ${stay} ${fadeOut}`)
-        player.execute(`title @a title "${main}"`)
-        player.execute(`title @a subtitle "${sub}"`)
+        player.execute(`title @a title "${safeMain}"`)
+        player.execute(`title @a subtitle "${safeSub}"`)
     }
 
     function askCurrentQuestion() {
@@ -43,15 +56,11 @@ namespace SproutAcademia {
         const qText = questionTexts[currentIndex]
         const tLimit = timeLimitSeconds[currentIndex]
 
-        const main = "Q" + qNum + ": " + qText
-        let sub = ""
-        if (optionA[currentIndex]) sub += "1) " + optionA[currentIndex]
-        if (optionB[currentIndex]) sub += "   2) " + optionB[currentIndex]
-        if (optionC[currentIndex]) sub += "   3) " + optionC[currentIndex]
-        if (optionD[currentIndex]) sub += "   4) " + optionD[currentIndex]
-
-        // Big on-screen question
-        showTitle(main, sub, tLimit)
+        player.say("Q" + qNum + ": " + qText)
+        if (optionA[currentIndex]) player.say("1) " + optionA[currentIndex])
+        if (optionB[currentIndex]) player.say("2) " + optionB[currentIndex])
+        if (optionC[currentIndex]) player.say("3) " + optionC[currentIndex])
+        if (optionD[currentIndex]) player.say("4) " + optionD[currentIndex])
 
         if (tLimit > 0) {
             player.say("You have " + tLimit + " seconds to answer.")
